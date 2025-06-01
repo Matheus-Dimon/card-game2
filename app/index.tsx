@@ -1,9 +1,10 @@
-import {Text , View } from "react-native"
-
+import {Text , View , ImageBackground,TouchableOpacity} from "react-native"
+import Router from "expo-router"
+ 
 export default function Index() {
     return (
         <View>
-            <text>hello world</text>
+            <TouchableOpacity></TouchableOpacity>
         </View>
     )
 }
