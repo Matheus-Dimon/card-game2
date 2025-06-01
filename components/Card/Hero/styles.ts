@@ -1,7 +1,7 @@
 import {StyleSheet} from "react-native"
 
 export const styles  = StyleSheet.create  ({
-      Startbutton: {
+      card: {
         width:"100%",
         height: 52,
         backgroundColor: "#E15610",
@@ -9,10 +9,4 @@ export const styles  = StyleSheet.create  ({
         justifyContent: "center",
         alignItems:"center",
     },
-    title:{
-        fontSize: 16,
-        fontWeight: "bold",
-        color:"blue"}
-
-})
-
+});
