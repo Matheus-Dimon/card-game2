@@ -10,14 +10,12 @@ export default function Index() {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require("@/assets/masmorra.png")}
+            {/* Make sure the image exists at the specified path or update the path below */}
+            <ImageBackground source={require("../assets/images/masmorra.png")}
                              style={styles.background}>
                 <Startbutton title="Iniciar Jogo" onPress={handleNext} />
-                <Text style={styles.title}>
-                    Bem vindo
-                </Text>
-                <Button title="continuar" 
-                        onPress={handleNext} />
+                
+            
             </ImageBackground>
         </View>
         )
@@ -39,6 +37,7 @@ const styles = StyleSheet.create({
     background: {
         flex: 1, 
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        padding: 40,
     },   
     });
