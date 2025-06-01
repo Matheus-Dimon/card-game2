@@ -6,7 +6,7 @@ export default function Battle() {
     return (
         <View style={styles.card}>
             <Image
-                source={require("../../assets/card.png")}
+                source={require("../../assets/images/card.png")}
                 style={styles.card}
                 resizeMode="contain"
             />

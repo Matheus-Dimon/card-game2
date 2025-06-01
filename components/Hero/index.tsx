@@ -4,10 +4,10 @@ import { Image, View } from "react-native";
 
 export default function Battle() {
     return (
-        <View>
+        <View style={styles.hero}>
             <Image
-                source={require("../../assets/warrior.png")}
-                style={styles.warrior}
+                source={require("../../assets/images/warrior.png")}
+                style={styles.hero}
                 resizeMode="contain"
             />
         </View>
