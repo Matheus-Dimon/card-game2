@@ -4,12 +4,12 @@ import Card from '../Card';
 
 type CardType = {
   id: number;
-  nome: string;
-  ataque: number;
-  defesa: number;
+  name: string;
+  attack: number;
+  defense: number;
   mana: number;
-  imagem: any; 
-  tipo: 'guerreiro' | 'mago' | 'arqueiro';
+  image: any; 
+  type: 'warrior' | 'mage' | 'archer';
 };
 
 type PlayerType = {
@@ -24,65 +24,65 @@ type PlayerProps = {
   isCurrent: boolean;
   onPlayCard: (card: CardType) => void;
   onAttack: (card: CardType) => void;
-  selectedAttacker: number | null;
 };
 
-export default function Player({ player, isCurrent, onPlayCard, onAttack, selectedAttacker }: PlayerProps) {
+export default function Player({ player, isCurrent, onPlayCard, onAttack }: PlayerProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{isCurrent ? 'Seu campo' : 'Campo do oponente'}</Text>
+      <Text style={styles.title}>{isCurrent ? 'Your Field' : "Opponent's Field"}</Text>
 
       <Text style={styles.section}>Mana: {player.mana}</Text>
 
-      <Text style={styles.section}>Campo:</Text>
+      <Text style={styles.section}>Field:</Text>
       <FlatList
-        data={player.field}
+      data={player.field}
+      horizontal
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item }) => (
+        <Card
+        card={item}
+        onPress={() => onAttack(item)}
+        disabled={false}
+        />
+      )}
+      />
+
+      {isCurrent && (
+      <>
+        <Text style={styles.section}>Hand:</Text>
+        <FlatList
+        data={player.hand}
         horizontal
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <Card
-            card={item}
-            onPress={() => onAttack(item)}
-            disabled={false}
+          card={item}
+          onPress={() => onPlayCard(item)}
+          disabled={false}
           />
         )}
-      />
-
-      {isCurrent && (
-        <>
-          <Text style={styles.section}>Mão:</Text>
-          <FlatList
-            data={player.hand}
-            horizontal
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <Card
-                card={item}
-                onPress={() => onPlayCard(item)}
-                disabled={false}
-              />
-            )}
-          />
-        </>
+        />
+      </>
       )}
     </View>
-  );
-}
-export const player1Deck: CardType[] = [
-  { id: 1, nome: 'Archer', ataque: 3, defesa: 2, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
-  { id: 2, nome: 'Warrior', ataque: 4, defesa: 3, mana: 3, imagem: require('../../assets/images/warrior.png'), tipo: 'guerreiro' },
-  { id: 3, nome: 'Mage', ataque: 2, defesa: 4, mana: 2, imagem: require('../../assets/images/mage.png'), tipo: 'mago' },
-  { id: 4, nome: 'Archer', ataque: 3, defesa: 2, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
-  { id: 5, nome: 'Warrior', ataque: 5, defesa: 2, mana: 4, imagem: require('../../assets/images/warrior.png'), tipo: 'guerreiro' },
-];
 
-export const player2Deck: CardType[] = [
-  { id: 6, nome: 'Mage', ataque: 3, defesa: 3, mana: 3, imagem: require('../../assets/images/mage.png'), tipo: 'mago' },
-  { id: 7, nome: 'Archer', ataque: 2, defesa: 5, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
-  { id: 8, nome: 'Warrior', ataque: 4, defesa: 2, mana: 3, imagem: require('../../assets/images/warrior.png'), tipo: 'guerreiro' },
-  { id: 9, nome: 'Mage', ataque: 5, defesa: 1, mana: 4, imagem: require('../../assets/images/mage.png'), tipo: 'mago' },
-  { id: 10, nome: 'Archer', ataque: 3, defesa: 3, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
-];
+  )}
+  export const player1Deck: CardType[] = [
+    { id: 1, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
+    { id: 2, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
+    { id: 3, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
+    { id: 4, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
+    { id: 5, name: 'Warrior', attack: 5, defense: 2, mana: 4, image: require('../../assets/images/warrior.png'), type: 'warrior' },
+  ];
+
+  export const player2Deck: CardType[] = [
+    { id: 6, name: 'Mage', attack: 3, defense: 3, mana: 3, image: require('../../assets/images/mage.png'), type: 'mage' },
+    { id: 7, name: 'Archer', attack: 2, defense: 5, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
+    { id: 8, name: 'Warrior', attack: 4, defense: 2, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
+    { id: 9, name: 'Mage', attack: 5, defense: 1, mana: 4, image: require('../../assets/images/mage.png'), type: 'mage' },
+    { id: 10, name: 'Archer', attack: 3, defense: 3, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
+  ];
+
 
 
 const styles = StyleSheet.create({

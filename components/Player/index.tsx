@@ -10,15 +10,14 @@ type PlayerType = {
   field: CardType[];
   
 };
-export type CardType = {
+type CardType = {
   id: number;
-  nome: string;
-  tipo: 'guerreiro' | 'mago' | 'arqueiro';
-  ataque: number;
-  defesa: number;
+  name: string;
+  type: 'warrior' | 'mage' | 'archer';
+  attack: number;
+  defense: number;
   mana: number;
-  // URL or path to the image representing the card
-  imagem: string;
+  image: any; 
 };
 
 type PlayerProps = {

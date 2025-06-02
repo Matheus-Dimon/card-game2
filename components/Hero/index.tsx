@@ -2,19 +2,19 @@ import React from 'react';
 import { View, Text, Image, Button, StyleSheet } from 'react-native';
 
 export type HeroType = {
-  nome: string;
+  name: string;
   hp: number;
   mana: number;
-  habilidade: string;
-  imagem: string;
-  podeUsarHabilidade: boolean;
-  usarHabilidade: () => void;
+  skill: string;
+  image: any;
+  canUseSkill: boolean;
+  useSkill: () => void;
 };
 
 
 
 type Card = {
-  defesa: number;
+  defense: number;
   // Adicione outras propriedades relevantes do Card aqui, se necessário
 };
 
@@ -25,51 +25,51 @@ let setPlayer2: React.Dispatch<React.SetStateAction<any>> = () => {};
 let setLog: React.Dispatch<React.SetStateAction<string[]>> = () => {};
 
 const hero1: HeroType = {
-  nome: 'Aran, o Protetor',
-  imagem: '../assets/images/hero1.png',
+  name: 'Aran',
+  image: '../assets/images/hero1.png',
   hp: player1.hp,
   mana: player1.mana,
-  habilidade: 'Escudo Mágico (absorve 3 de dano)',
-  podeUsarHabilidade: player1.mana >= 1,
-  usarHabilidade: () => {
+  skill: 'Magic Shield (absorbs 3 damage)',
+  canUseSkill: player1.mana >= 1,
+  useSkill: () => {
     // Exemplo: aumenta a defesa de todas as criaturas em campo
     setPlayer1((prev: any) => ({
       ...prev,
       mana: prev.mana - 1,
       field: prev.field.map((card: Card) => ({
       ...card,
-      defesa: card.defesa + 1,
+      defense: card.defense + 1,
       })),
     }));
-    setLog(prev => [...prev, 'Herói 1 usou Escudo Mágico!']);
+    setLog(prev => [...prev, 'Hero used 1 magic shield!']);
   },
 };
 
 const hero2: HeroType = {
-  nome: 'Zara, a Sombria',
-  imagem: '../assets/images/hero.png',
+  name: 'Zara',
+  image: '../assets/images/hero.png',
   hp: player2?.hp ?? 0,
   mana: player2?.mana ?? 0,
-  habilidade: 'Raio Sombrio (causa 2 de dano direto)',
-  podeUsarHabilidade: player2?.mana >= 1,
-  usarHabilidade: () => {
+  skill: 'Bolt (2 direct damage)',
+  canUseSkill: player2?.mana >= 1,
+  useSkill: () => {
     setPlayer1((prev: any) => ({ ...prev, hp: prev.hp - 2, mana: prev.mana }));
     setPlayer2((prev: any) => ({ ...prev, mana: prev.mana - 1 }));
-    setLog((prev: string[]) => [...prev, 'Herói 2 usou Raio Sombrio!']);
+    setLog((prev: string[]) => [...prev, 'Hero used  Bolt']);
   },
 };
-export default function Hero({ nome, hp, mana, habilidade, imagem, podeUsarHabilidade, usarHabilidade }: HeroType) {
+export default function Hero({ name, hp, mana, skill, image, canUseSkill, useSkill }: HeroType) {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: imagem }} style={styles.image} />
-      <Text style={styles.name}>{nome}</Text>
+      <Image source={{ uri: image }} style={styles.image} />
+      <Text style={styles.name}>{name}</Text>
       <Text>HP: {hp}</Text>
       <Text>Mana: {mana}</Text>
-      <Text>Habilidade: {habilidade}</Text>
+      <Text>Skill: {skill}</Text>
       <Button 
-        title="Usar Habilidade"
-        onPress={usarHabilidade}
-        disabled={!podeUsarHabilidade || mana < 1}
+        title="Hero Power"
+        onPress={useSkill}
+        disabled={!canUseSkill || mana < 1}
       />
     </View>
   );

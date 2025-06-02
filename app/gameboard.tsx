@@ -16,11 +16,11 @@ interface PlayerState {
 }
 
 function EndTurnButton({ onEndTurn }: { onEndTurn: () => void }) {
-  return <Button title="Fim de turno" onPress={onEndTurn} color="#2196F3" />;
+  return <Button title="End Turn" onPress={onEndTurn} color="#2196F3" />;
 }
 
 function DrawCardButton({ onDraw }: { onDraw: () => void }) {
-  return <Button title="Comprar carta" onPress={onDraw} color="#4CAF50" />;
+  return <Button title="Draw Card" onPress={onDraw} color="#4CAF50" />;
 }
 
 export default function GameBoard() {
@@ -60,19 +60,19 @@ export default function GameBoard() {
       field: newField,
     });
 
-    setLog((prev) => [...prev, `Jogador ${turn} jogou ${card.nome}`]);
+    setLog((prev) => [...prev, `Player ${turn} played ${card.name}`]);
   }
 
   function attack(card: CardType) {
     if (currentPlayer.hasAttacked || !card) return;
 
-    const newHp = opponentPlayer.hp - card.ataque;
+    const newHp = opponentPlayer.hp - card.attack;
     setOpponentPlayer({ ...opponentPlayer, hp: newHp });
     setCurrentPlayer({ ...currentPlayer, hasAttacked: true });
 
     setLog((prev) => [
       ...prev,
-      `Jogador ${turn} atacou com ${card.nome} causando ${card.ataque} de dano!`,
+      `Player ${turn} attacked with ${card.name} causing ${card.attack} damage!`,
     ]);
   }
 
@@ -91,129 +91,130 @@ export default function GameBoard() {
         ...currentPlayer,
         hand: [...currentPlayer.hand, drawnCard],
       });
-      setLog((prev) => [...prev, `Jogador ${turn} comprou uma carta.`]);
+      setLog((prev) => [...prev, `Player ${turn} drew a card.`]);
     }
   }
 
-  function usarHabilidadeEspecial() {
+  function useHeroPower() {
     if (currentPlayer.mana >= 3) {
       setOpponentPlayer({ ...opponentPlayer, hp: opponentPlayer.hp - 2 });
       setCurrentPlayer({ ...currentPlayer, mana: currentPlayer.mana - 3 });
-      setLog((prev) => [...prev, `Jogador ${turn} usou habilidade especial e causou 2 de dano!`]);
+      setLog((prev) => [...prev, `Player ${turn} used special ability and caused 2 damage!`]);
     }
   }
 
   const isGameOver = player1.hp <= 0 || player2.hp <= 0;
 
   const hero1: HeroType = {
-    nome: 'Herói 1',
-    imagem: require('../assets/images/hero1.png'),
+    name: 'Hero 1',
+    image: require('../assets/images/hero1.png'),
     hp: player1.hp,
     mana: player1.mana,
-    habilidade: 'Explosão Arcana',
-    podeUsarHabilidade: player1.mana >= 3,
-    usarHabilidade: usarHabilidadeEspecial,
+    skill: 'Arcane Explosion',
+    canUseSkill: player1.mana >= 3,
+    useSkill: useHeroPower,
   };
 
   const hero2: HeroType = {
-    nome: 'Herói 2',
-    imagem: require('../assets/images/hero2.png'),
+    name: 'Hero 2',
+    image: require('../assets/images/hero2.png'),
     hp: player2.hp,
     mana: player2.mana,
-    habilidade: 'Golpe Sombrio',
-    podeUsarHabilidade: player2.mana >= 3,
-    usarHabilidade: usarHabilidadeEspecial,
+    skill: 'Shadow Strike',
+    canUseSkill: player2.mana >= 3,
+    useSkill: useHeroPower,
   };
 
-  return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {isGameOver ? (
-          <Text style={styles.title}>Jogador {player1.hp <= 0 ? '2' : '1'} venceu!</Text>
-        ) : (
-          <>
-            <View style={styles.heroRow}><Hero {...hero2} /></View>
+    return (
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          {isGameOver ? (
+            <Text style={styles.title}>Jogador {player1.hp <= 0 ? '2' : '1'} vence!</Text>
+          ) : (
+            <>
+              <View style={styles.heroRow}><Hero {...hero2} /></View>
 
-            <ScrollView horizontal style={styles.handRow} contentContainerStyle={styles.handContent}>
-              {player2.hand.map((card) => (
-                <TouchableOpacity
-                  key={card.id}
-                  disabled={turn !== 2 || player2.mana < card.mana}
-                  onPress={() => playCard(card)}
-                  style={[styles.cardHand, { opacity: turn !== 2 || player2.mana < card.mana ? 0.5 : 1 }]}
-                >
-                  <Image source={{ uri: card.imagem }} style={styles.cardImage} resizeMode="cover" />
-                </TouchableOpacity>
+              <ScrollView horizontal style={styles.handRow} contentContainerStyle={styles.handContent}>
+                {player2.hand.map((card) => (
+                  <TouchableOpacity
+                    key={card.id}
+                    disabled={turn !== 2 || player2.mana < card.mana}
+                    onPress={() => playCard(card)}
+                    style={[styles.cardHand, { opacity: turn !== 2 || player2.mana < card.mana ? 0.5 : 1 }]}
+                  >
+                    <Image source={{ uri: card.image }} style={styles.cardImage} resizeMode="cover" />
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+              <View style={styles.fieldRow}>
+                {player2.field.map((card) => (
+                  <TouchableOpacity
+                    key={card.id}
+                    disabled={turn !== 2 || player2.hasAttacked}
+                    onPress={() => attack(card)}
+                    style={[styles.cardField, { opacity: turn !== 2 || player2.hasAttacked ? 0.5 : 1 }]}
+                  >
+                    <Text style={styles.cardTitle}>{card.name}</Text>
+                    <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <View style={styles.centerCircle}><Text style={styles.centerText}>VS</Text></View>
+
+              <View style={styles.fieldRow}>
+                {player1.field.map((card) => (
+                  <TouchableOpacity
+                    key={card.id}
+                    disabled={turn !== 1 || player1.hasAttacked}
+                    onPress={() => attack(card)}
+                    style={[styles.cardField, { opacity: turn !== 1 || player1.hasAttacked ? 0.5 : 1 }]}
+                  >
+                    <Text style={styles.cardTitle}>{card.name}</Text>
+                    <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              <View style={styles.heroRow}><Hero {...hero1} /></View>
+
+              <ScrollView horizontal style={styles.handRow} contentContainerStyle={styles.handContent}>
+                {player1.hand.map((card) => (
+                  <TouchableOpacity
+                    key={card.id}
+                    disabled={turn !== 1 || player1.mana < card.mana}
+                    onPress={() => playCard(card)}
+                    style={[styles.cardHand, { opacity: turn !== 1 || player1.mana < card.mana ? 0.5 : 1 }]}
+                  >
+                    <Image source={{ uri: card.image }} style={styles.cardImage} resizeMode="cover" />
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </>
+          )}
+        </ScrollView>
+
+        <View style={styles.infoPanel}>
+          {!isGameOver && (
+            <>
+              <Text style={styles.title}>Turno do Jogador {turn}</Text>
+              <EndTurnButton onEndTurn={endTurn} />
+              <DrawCardButton onDraw={drawCard} />
+              <Button title="Use skill" onPress={useHeroPower} color="#FF5722" />
+              <Text style={styles.section}>Cartas na Mão:</Text>
+              {(turn === 1 ? player1.hand : player2.hand).map((card) => (
+                <Text key={card.id}>
+                  {card.name} (Mana: {card.mana}, Ataque: {card.attack})
+                </Text>
               ))}
-            </ScrollView>
-
-            <View style={styles.fieldRow}>
-              {player2.field.map((card) => (
-                <TouchableOpacity
-                  key={card.id}
-                  disabled={turn !== 2 || player2.hasAttacked}
-                  onPress={() => attack(card)}
-                  style={[styles.cardField, { opacity: turn !== 2 || player2.hasAttacked ? 0.5 : 1 }]}
-                >
-                  <Text style={styles.cardTitle}>{card.nome}</Text>
-                  <Text style={styles.cardStats}>ATK: {card.ataque}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            <View style={styles.centerCircle}><Text style={styles.centerText}>VS</Text></View>
-
-            <View style={styles.fieldRow}>
-              {player1.field.map((card) => (
-                <TouchableOpacity
-                  key={card.id}
-                  disabled={turn !== 1 || player1.hasAttacked}
-                  onPress={() => attack(card)}
-                  style={[styles.cardField, { opacity: turn !== 1 || player1.hasAttacked ? 0.5 : 1 }]}
-                >
-                  <Text style={styles.cardTitle}>{card.nome}</Text>
-                  <Text style={styles.cardStats}>ATK: {card.ataque}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            <View style={styles.heroRow}><Hero {...hero1} /></View>
-
-            <ScrollView horizontal style={styles.handRow} contentContainerStyle={styles.handContent}>
-              {player1.hand.map((card) => (
-                <TouchableOpacity
-                  key={card.id}
-                  disabled={turn !== 1 || player1.mana < card.mana}
-                  onPress={() => playCard(card)}
-                  style={[styles.cardHand, { opacity: turn !== 1 || player1.mana < card.mana ? 0.5 : 1 }]}
-                >
-                  <Image source={{ uri: card.imagem }} style={styles.cardImage} resizeMode="cover" />
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </>
-        )}
-      </ScrollView>
-
-      <View style={styles.infoPanel}>
-        {!isGameOver && (
-          <>
-            <Text style={styles.title}>Turno do Jogador {turn}</Text>
-            <EndTurnButton onEndTurn={endTurn} />
-            <DrawCardButton onDraw={drawCard} />
-            <Button title="Usar Habilidade" onPress={usarHabilidadeEspecial} color="#FF5722" />
-            <Text style={styles.section}>Cartas na mão:</Text>
-            {(turn === 1 ? player1.hand : player2.hand).map((card) => (
-              <Text key={card.id}>
-                {card.nome} (Mana: {card.mana}, Ataque: {card.ataque})
-              </Text>
-            ))}
-          </>
-        )}
-        <Text style={styles.section}>Pontos de Vida</Text>
-        <Text>Jogador 1: {player1.hp} HP</Text>
-        <Text>Jogador 2: {player2.hp} HP</Text>
-        <Text style={styles.section}>Log de Ações:</Text>
+            </>
+          )}
+        
+        <Text style={styles.section}>Life Points</Text>
+        <Text>Player 1: {player1.hp} HP</Text>
+        <Text>Player 2: {player2.hp} HP</Text>
+        <Text style={styles.section}>Action Log:</Text>
         {log.slice(-5).map((entry, index) => (
           <Text key={index}>- {entry}</Text>
         ))}

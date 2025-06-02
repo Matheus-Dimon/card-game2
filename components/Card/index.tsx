@@ -4,12 +4,12 @@ import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 export type CardType = {
   id: number;
-  nome: string;
-  tipo: 'guerreiro' | 'mago' | 'arqueiro';
-  ataque: number;
-  defesa: number;
+  name: string;
+  type: 'warrior' | 'mage' | 'archer';
+  attack: number;
+  defense: number;
   mana: number;
-  imagem: string;
+  image: any;
 };
 type CardProps = {
   card: CardType;
@@ -26,10 +26,10 @@ const Card: React.FC<CardProps> = ({ card, onPress, disabled }) => {
     >
      
       
-      <Text style={styles.name}>{card.nome}</Text>
-      <Text style={styles.text}>Tipo: {card.tipo}</Text>
-      <Text>Ataque: {card.ataque}</Text>
-      <Text>DEF: {card.defesa}</Text>
+      <Text style={styles.name}>{card.name}</Text>
+      <Text style={styles.text}>Type: {card.type}</Text>
+      <Text>Attack: {card.attack}</Text>
+      <Text>DEF: {card.defense}</Text>
       <Text>Mana: {card.mana}</Text>
     </TouchableOpacity>
   );
