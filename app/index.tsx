@@ -5,7 +5,7 @@ import Startbutton from "@/components/Startbutton"
 
 export default function Index() {
     function handleNext() {
-        router.navigate("/battle")
+        router.navigate("/gameboard")
     }
 
     return (
