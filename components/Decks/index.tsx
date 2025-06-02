@@ -1,5 +1,3 @@
-// components/Player.jsx
-// components/Player.jsx
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import Card from '../Card';
@@ -11,14 +9,14 @@ type CardType = {
   defesa: number;
   mana: number;
   tipo: string;
-  // add other card properties as needed
+  
 };
 
 type PlayerType = {
   mana: number;
   field: CardType[];
   hand: CardType[];
-  // add other player properties as needed
+  
 };
 
 type PlayerProps = {
