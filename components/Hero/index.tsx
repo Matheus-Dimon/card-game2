@@ -32,7 +32,6 @@ const hero1: HeroType = {
   skill: 'Magic Shield (absorbs 3 damage)',
   canUseSkill: player1.mana >= 1,
   useSkill: () => {
-    // Exemplo: aumenta a defesa de todas as criaturas em campo
     setPlayer1((prev: any) => ({
       ...prev,
       mana: prev.mana - 1,
@@ -61,7 +60,7 @@ const hero2: HeroType = {
 export default function Hero({ name, hp, mana, skill, image, canUseSkill, useSkill }: HeroType) {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image source={image} style={styles.image} />
       <Text style={styles.name}>{name}</Text>
       <Text>HP: {hp}</Text>
       <Text>Mana: {mana}</Text>
