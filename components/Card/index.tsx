@@ -17,15 +17,29 @@ type CardProps = {
   disabled?: boolean;
 };
 
-export default function Card({ card, onPress, disabled = false }: CardProps)  {
+
+const imageMap: { [key: string]: any } = {
+  'warrior.png': require('../../assets/images/warrior.png'),
+  'mage.png': require('../../assets/images/mage.png'),
+  'archer.png': require('../../assets/images/archer.png'),
+};
+
+const Card: React.FC<CardProps> = ({ card, onPress, disabled }) => {
   return (
     <TouchableOpacity
       style={[styles.card, disabled && styles.disabled]}
-      onPress={disabled ? undefined : onPress}
+      onPress={onPress}
       disabled={disabled}
-      activeOpacity={0.7}
     >
-      <Image source={{ uri: card.imagem }} style={styles.image} />
+      <Image
+        source={
+          card.imagem.startsWith('http') || card.imagem.startsWith('file')
+            ? { uri: card.imagem }
+            : imageMap[card.imagem] || imageMap['default.png']
+        }
+        style={styles.image}
+        resizeMode="cover"
+      />
       <Text style={styles.name}>{card.nome}</Text>
       <Text>Tipo: {card.tipo}</Text>
       <Text>Ataque: {card.ataque}</Text>
@@ -33,7 +47,9 @@ export default function Card({ card, onPress, disabled = false }: CardProps)  {
       <Text>Mana: {card.mana}</Text>
     </TouchableOpacity>
   );
-}
+};
+
+export default Card;
 
 const styles = StyleSheet.create({
   card: {
@@ -42,12 +58,14 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     width: 130,
+    alignItems: 'center', // Garante que a imagem e textos fiquem centralizados
   },
   image: {
     width: 100,
     height: 100,
     borderRadius: 8,
     marginBottom: 8,
+    backgroundColor: '#ccc', // Ajuda a visualizar o espaço da imagem caso não carregue
   },
   disabled: {
     opacity: 0.5,

@@ -8,7 +8,7 @@ type CardType = {
   ataque: number;
   defesa: number;
   mana: number;
-  imagem: string;
+  imagem: any; 
   tipo: 'guerreiro' | 'mago' | 'arqueiro';
 };
 
@@ -68,18 +68,22 @@ export default function Player({ player, isCurrent, onPlayCard, onAttack, select
     </View>
   );
 }
-
 export const player1Deck: CardType[] = [
-  { id: 1, nome: 'Guerreiro Flamejante', ataque: 3, defesa: 2, mana: 2, imagem: 'guerreiro.png', tipo: 'guerreiro' },
-  { id: 2, nome: 'Mago do Gelo', ataque: 2, defesa: 3, mana: 1, imagem: 'mago.png', tipo: 'mago' },
-  // Adicione mais cartas conforme necessário
+  { id: 1, nome: 'Archer', ataque: 3, defesa: 2, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
+  { id: 2, nome: 'Warrior', ataque: 4, defesa: 3, mana: 3, imagem: require('../../assets/images/warrior.png'), tipo: 'guerreiro' },
+  { id: 3, nome: 'Mage', ataque: 2, defesa: 4, mana: 2, imagem: require('../../assets/images/mage.png'), tipo: 'mago' },
+  { id: 4, nome: 'Archer', ataque: 3, defesa: 2, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
+  { id: 5, nome: 'Warrior', ataque: 5, defesa: 2, mana: 4, imagem: require('../../assets/images/warrior.png'), tipo: 'guerreiro' },
 ];
 
 export const player2Deck: CardType[] = [
-  { id: 11, nome: 'Arqueiro da Terra', ataque: 4, defesa: 4, mana: 3, imagem: 'arqueiro.png', tipo: 'arqueiro' },
-  { id: 12, nome: 'Guerreiro do Ar', ataque: 1, defesa: 2, mana: 1, imagem: 'guerreiro.png', tipo: 'guerreiro' },
-  // Adicione mais cartas conforme necessário
+  { id: 6, nome: 'Mage', ataque: 3, defesa: 3, mana: 3, imagem: require('../../assets/images/mage.png'), tipo: 'mago' },
+  { id: 7, nome: 'Archer', ataque: 2, defesa: 5, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
+  { id: 8, nome: 'Warrior', ataque: 4, defesa: 2, mana: 3, imagem: require('../../assets/images/warrior.png'), tipo: 'guerreiro' },
+  { id: 9, nome: 'Mage', ataque: 5, defesa: 1, mana: 4, imagem: require('../../assets/images/mage.png'), tipo: 'mago' },
+  { id: 10, nome: 'Archer', ataque: 3, defesa: 3, mana: 2, imagem: require('../../assets/images/archer.png'), tipo: 'arqueiro' },
 ];
+
 
 const styles = StyleSheet.create({
   container: {
