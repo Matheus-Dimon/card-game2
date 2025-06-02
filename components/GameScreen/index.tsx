@@ -1,8 +1,24 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import GameBoard from '@/app/gameboard';
+import gamerboard from '@/app/gameboard';
 import { styles } from './styles';
-import Player from '@/components/Player';
+
+
+interface GameBoardProps {
+    player1: any;
+    player2: any;
+    turn: number;
+    log: string[];
+    actions: {
+        playCard: (cardId: number) => void;
+        attack: (attackerId: number, targetId: number) => void;
+        useHeroPower: () => void;
+    };
+}
+
+const GameBoard: React.FC<GameBoardProps> = ({ player1, player2, turn, log, actions }) => {
+    return null; // Add implementation here
+};
 
 interface GameScreenProps {
     player1: any;
@@ -13,6 +29,8 @@ interface GameScreenProps {
     attack: (target: 'player1' | 'player2') => void;
     useHeroPower: () => void;
     isGameOver: boolean;
+    invert?: boolean;
+    isCurrent?: boolean;
 }
 
 export const GameScreen: React.FC<GameScreenProps> = ({
@@ -28,7 +46,7 @@ export const GameScreen: React.FC<GameScreenProps> = ({
     return (
         <View style={styles.container}>
             {isGameOver ? (
-                <Text style={styles.title}>Jogador {player1.hp <= 0 ? '2' : '1'} vence!</Text>
+                <Text style={styles.title}>Player{player1.hp <= 0 ? '2' : '1'} vence!</Text>
             ) : (
                 <GameBoard
                     player1={player1}
@@ -37,13 +55,13 @@ export const GameScreen: React.FC<GameScreenProps> = ({
                     log={log}
                     actions={{
                         playCard,
-                        attack: (attackerId: number, targetId: number) => {
+                        attack: (_: number, __: number) => {
                             // Assuming attackerId is always the current player's ID
                             // and you want to attack the other player
                             const target = turn === 1 ? 'player2' : 'player1';
                             attack(target);
                         },
-                        useHeroPower,
+                        useHeroPower
                     }}
                 />
             )}

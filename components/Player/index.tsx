@@ -6,6 +6,7 @@ import { styles } from './styles'; // Importa os estilos do componente
 
 // Define o tipo para um jogador
 type PlayerType = {
+  playerid: number; // Identificador único do jogador
   hp: number; // Pontos de vida do jogador
   mana: number; // Mana do jogador
   hand: CardType[]; // Mão de cartas do jogador

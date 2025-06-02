@@ -7,12 +7,23 @@ import DrawCardButton from '@/components/DrawCardButton';
 import HeroPowerButton from '@/components/HeroPowerButton';
 import { CardType } from '@/components/Card';
 
-interface PlayerAreaProps {
-  player: any;
-  isCurrentTurn: boolean;
+export interface PlayerAreaProps {
+  player: {
+    hp: number;
+    mana: number;
+    hand: any[];
+    field: any[];
+    onEndTurn: () => void;
+    onDrawCard: () => void;
+    hero: any;
+    hasAttacked: boolean;};
+   isCurrent: any;
+   invert?: boolean;
+   isCurrentTurn: any;
   playCard: (card: CardType) => void;
   attack: (card: CardType) => void;
   useHeroPower: () => void;
+  
 }
 
 export default function PlayerArea({ player, isCurrentTurn, playCard, attack, useHeroPower }: PlayerAreaProps) {
