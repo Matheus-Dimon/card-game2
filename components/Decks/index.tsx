@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import Card from '../Card';
+import { styles } from './styles';
 
 type CardType = {
   id: number;
@@ -85,16 +86,3 @@ export default function Player({ player, isCurrent, onPlayCard, onAttack }: Play
 
 
 
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  section: {
-    marginTop: 5,
-    fontWeight: 'bold',
-  },
-});

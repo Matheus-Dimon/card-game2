@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import Card from '../Card';
+import { styles } from './styles';
 
 type PlayerType = {
   hp: number;
@@ -63,16 +64,4 @@ export default function Player({ player, isCurrent, onPlayCard, onAttack }: Play
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 20,
-  },
-  status: {
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  section: {
-    marginTop: 10,
-    fontWeight: 'bold',
-  },
-});
+
