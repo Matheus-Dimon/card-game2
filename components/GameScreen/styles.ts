@@ -18,4 +18,9 @@ export const styles = StyleSheet.create({
   name: {
     fontWeight: 'bold',
   },
+  title:{
+    color: "red",
+    fontSize: 24,
+    fontWeight: "bold",
+  }
 });
