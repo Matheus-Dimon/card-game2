@@ -3,7 +3,7 @@
     "name": "card-game",
     "slug": "card-game",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "landscape",
     "icon": "./assets/images/icon.png",
     "scheme": "cardgame",
     "userInterfaceStyle": "automatic",
