@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ card, onPress, disabled }) => {
       onPress={onPress}
       disabled={disabled}
     >
-     
+      <Image source={card.image} style={styles.image} resizeMode="cover" />
       
       <Text style={styles.name}>{card.name}</Text>
       <Text style={styles.text}>Type: {card.type}</Text>
