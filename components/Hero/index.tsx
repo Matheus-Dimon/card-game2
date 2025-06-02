@@ -26,7 +26,7 @@ let setLog: React.Dispatch<React.SetStateAction<string[]>> = () => {};
 
 const hero1: HeroType = {
   nome: 'Aran, o Protetor',
-  imagem: 'https://via.placeholder.com/100/blue',
+  imagem: '../assets/images/hero1.png',
   hp: player1.hp,
   mana: player1.mana,
   habilidade: 'Escudo Mágico (absorve 3 de dano)',
@@ -47,7 +47,7 @@ const hero1: HeroType = {
 
 const hero2: HeroType = {
   nome: 'Zara, a Sombria',
-  imagem: 'https://via.placeholder.com/100/red',
+  imagem: '../assets/images/hero.png',
   hp: player2?.hp ?? 0,
   mana: player2?.mana ?? 0,
   habilidade: 'Raio Sombrio (causa 2 de dano direto)',

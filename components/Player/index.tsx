@@ -17,6 +17,7 @@ export type CardType = {
   ataque: number;
   defesa: number;
   mana: number;
+  // URL or path to the image representing the card
   imagem: string;
 };
 

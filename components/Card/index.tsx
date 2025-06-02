@@ -1,6 +1,6 @@
 // components/Card.jsx
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 export type CardType = {
   id: number;
@@ -17,13 +17,6 @@ type CardProps = {
   disabled?: boolean;
 };
 
-
-const imageMap: { [key: string]: any } = {
-  'warrior.png': require('../../assets/images/warrior.png'),
-  'mage.png': require('../../assets/images/mage.png'),
-  'archer.png': require('../../assets/images/archer.png'),
-};
-
 const Card: React.FC<CardProps> = ({ card, onPress, disabled }) => {
   return (
     <TouchableOpacity
@@ -31,17 +24,10 @@ const Card: React.FC<CardProps> = ({ card, onPress, disabled }) => {
       onPress={onPress}
       disabled={disabled}
     >
-      <Image
-        source={
-          card.imagem.startsWith('http') || card.imagem.startsWith('file')
-            ? { uri: card.imagem }
-            : imageMap[card.imagem] || imageMap['default.png']
-        }
-        style={styles.image}
-        resizeMode="cover"
-      />
+     
+      
       <Text style={styles.name}>{card.nome}</Text>
-      <Text>Tipo: {card.tipo}</Text>
+      <Text style={styles.text}>Tipo: {card.tipo}</Text>
       <Text>Ataque: {card.ataque}</Text>
       <Text>DEF: {card.defesa}</Text>
       <Text>Mana: {card.mana}</Text>
@@ -74,4 +60,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 4,
   },
+  text: {
+    fontSize: 12,
+  }
 });
