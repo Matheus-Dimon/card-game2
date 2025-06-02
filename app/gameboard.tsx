@@ -98,7 +98,7 @@ export default function GameBoard() {
 
   const hero1: HeroType = {
     nome: 'Herói 1',
-    imagem: '../assets/images/hero1.png',
+    imagem: require('../assets/images/hero1.png'),
     hp: player1.hp,
     mana: player1.mana,
     habilidade: '',
@@ -108,7 +108,7 @@ export default function GameBoard() {
 
   const hero2: HeroType = {
     nome: 'Herói 2',
-    imagem: '../assets/images/hero1.png',
+    imagem: require('../assets/images/hero2.png'),
     hp: player2.hp,
     mana: player2.mana,
     habilidade: '',
