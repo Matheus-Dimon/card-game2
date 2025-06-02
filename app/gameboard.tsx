@@ -140,9 +140,10 @@ export default function GameBoard() {
                     key={card.id}
                     disabled={turn !== 2 || player2.mana < card.mana}
                     onPress={() => playCard(card)}
-                    style={[styles.cardHand, { opacity: turn !== 2 || player2.mana < card.mana ? 0.5 : 1 }]}
-                  >
-                    <Image source={{ uri: card.image }} style={styles.cardImage} resizeMode="cover" />
+                    style={[styles.cardHand, { opacity: turn !== 2 || player2.mana < card.mana ? 0.5 : 1 }]}>
+                  
+                    <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
+
                   </TouchableOpacity>
                 ))}
               </ScrollView>
@@ -153,8 +154,8 @@ export default function GameBoard() {
                     key={card.id}
                     disabled={turn !== 2 || player2.hasAttacked}
                     onPress={() => attack(card)}
-                    style={[styles.cardField, { opacity: turn !== 2 || player2.hasAttacked ? 0.5 : 1 }]}
-                  >
+                    style={[styles.cardField, { opacity: turn !== 2 || player2.hasAttacked ? 0.5 : 1 }]}>
+                  
                     <Text style={styles.cardTitle}>{card.name}</Text>
                     <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
                   </TouchableOpacity>
@@ -169,8 +170,7 @@ export default function GameBoard() {
                     key={card.id}
                     disabled={turn !== 1 || player1.hasAttacked}
                     onPress={() => attack(card)}
-                    style={[styles.cardField, { opacity: turn !== 1 || player1.hasAttacked ? 0.5 : 1 }]}
-                  >
+                    style={[styles.cardField, { opacity: turn !== 1 || player1.hasAttacked ? 0.5 : 1 }]}>
                     <Text style={styles.cardTitle}>{card.name}</Text>
                     <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
                   </TouchableOpacity>
@@ -185,9 +185,10 @@ export default function GameBoard() {
                     key={card.id}
                     disabled={turn !== 1 || player1.mana < card.mana}
                     onPress={() => playCard(card)}
-                    style={[styles.cardHand, { opacity: turn !== 1 || player1.mana < card.mana ? 0.5 : 1 }]}
-                  >
-                    <Image source={{ uri: card.image }} style={styles.cardImage} resizeMode="cover" />
+                    style={[styles.cardHand, { opacity: turn !== 1 || player1.mana < card.mana ? 0.5 : 1 }]}>
+                  
+                    <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
+
                   </TouchableOpacity>
                 ))}
               </ScrollView>
@@ -198,7 +199,7 @@ export default function GameBoard() {
         <View style={styles.infoPanel}>
           {!isGameOver && (
             <>
-              <Text style={styles.title}>Turno do Jogador {turn}</Text>
+              <Text style={styles.title}> Player {turn}</Text>
               <EndTurnButton onEndTurn={endTurn} />
               <DrawCardButton onDraw={drawCard} />
               <Button title="Use skill" onPress={useHeroPower} color="#FF5722" />
