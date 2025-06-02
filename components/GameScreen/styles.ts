@@ -1,26 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
-    alignItems: 'flex-end',
-    padding: 0,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 1,
-    marginBottom: 1,
-    backgroundColor: '#f4f4f4'
+  card: {
+    width: 60, // Largura do card
+    height: 90, // Altura do card
+    backgroundColor: '#fff', // Cor de fundo do card
+    borderRadius: 8, // Bordas arredondadas
+    padding: 5, // Espaçamento interno
+    margin: 5, // Margem externa
+    alignItems: 'center', // Alinha os itens no centro horizontalmente
+    justifyContent: 'center', // Alinha os itens no centro verticalmente
   },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 3,
-  },
-  name: {
-    fontWeight: 'bold',
-  },
-  title:{
-    color: "red",
-    fontSize: 24,
-    fontWeight: "bold",
-  }
 });

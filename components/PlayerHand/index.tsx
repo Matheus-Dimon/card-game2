@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity, Image } from 'react-native';
-import { styles } from '@/app/styles';
+import { styles } from './styles';
 import type { CardType } from '@/components/Card';
 
 interface PlayerHandProps {
@@ -13,7 +13,7 @@ interface PlayerHandProps {
 
 export default function PlayerHand({ hand, turn, player, mana, playCard }: PlayerHandProps) {
   return (
-    <ScrollView horizontal style={styles.handRow}>
+    <ScrollView horizontal style={styles.handHow}>
       {hand.map((card) => (
         <TouchableOpacity
           key={card.id}

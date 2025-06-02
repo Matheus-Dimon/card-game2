@@ -3,10 +3,6 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   card: {
     backgroundColor: '#f0f0f0',
-    borderRadius: 8,
-    padding: 10,
-    margin: 5,
-    width: 130,
     alignItems: 'center', // Garante que a imagem e textos fiquem centralizados
   },
   image: {
