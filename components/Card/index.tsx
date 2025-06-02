@@ -1,34 +1,36 @@
 // components/Card.jsx
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-type CardType = {
-  id: string | number;
+export type CardType = {
+  id: number;
   nome: string;
+  tipo: 'guerreiro' | 'mago' | 'arqueiro';
   ataque: number;
   defesa: number;
   mana: number;
-  tipo: string;
+  imagem: string;
 };
-
-type Props = {
+type CardProps = {
   card: CardType;
-  onPress: (id: CardType['id']) => void;
+  onPress: () => void;
   disabled?: boolean;
 };
 
-export default function Card({ card, onPress, disabled = false }: Props) {
+export default function Card({ card, onPress, disabled = false }: CardProps)  {
   return (
     <TouchableOpacity
       style={[styles.card, disabled && styles.disabled]}
-      onPress={() => onPress(card.id)}
+      onPress={disabled ? undefined : onPress}
       disabled={disabled}
+      activeOpacity={0.7}
     >
+      <Image source={{ uri: card.imagem }} style={styles.image} />
       <Text style={styles.name}>{card.nome}</Text>
-      <Text>Ataque: {card.ataque}</Text>
-      <Text>Defesa: {card.defesa}</Text>
-      <Text>Mana: {card.mana}</Text>
       <Text>Tipo: {card.tipo}</Text>
+      <Text>Ataque: {card.ataque}</Text>
+      <Text>DEF: {card.defesa}</Text>
+      <Text>Mana: {card.mana}</Text>
     </TouchableOpacity>
   );
 }
@@ -40,6 +42,12 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     width: 130,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    marginBottom: 8,
   },
   disabled: {
     opacity: 0.5,

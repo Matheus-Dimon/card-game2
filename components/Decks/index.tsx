@@ -8,8 +8,8 @@ type CardType = {
   ataque: number;
   defesa: number;
   mana: number;
-  tipo: string;
-  
+  imagem: string;
+  tipo: 'guerreiro' | 'mago' | 'arqueiro';
 };
 
 type PlayerType = {
@@ -70,15 +70,15 @@ export default function Player({ player, isCurrent, onPlayCard, onAttack, select
 }
 
 export const player1Deck: CardType[] = [
-  { id: 1, nome: 'Fogo', ataque: 3, defesa: 2, mana: 2, tipo: 'fogo' },
-  { id: 2, nome: 'Gelo', ataque: 2, defesa: 3, mana: 1, tipo: 'gelo' },
-  // ...
+  { id: 1, nome: 'Guerreiro Flamejante', ataque: 3, defesa: 2, mana: 2, imagem: 'guerreiro.png', tipo: 'guerreiro' },
+  { id: 2, nome: 'Mago do Gelo', ataque: 2, defesa: 3, mana: 1, imagem: 'mago.png', tipo: 'mago' },
+  // Adicione mais cartas conforme necessário
 ];
 
 export const player2Deck: CardType[] = [
-  { id: 11, nome: 'Terra', ataque: 4, defesa: 4, mana: 3, tipo: 'terra' },
-  { id: 12, nome: 'Ar', ataque: 1, defesa: 2, mana: 1, tipo: 'ar' },
-  // ...
+  { id: 11, nome: 'Arqueiro da Terra', ataque: 4, defesa: 4, mana: 3, imagem: 'arqueiro.png', tipo: 'arqueiro' },
+  { id: 12, nome: 'Guerreiro do Ar', ataque: 1, defesa: 2, mana: 1, imagem: 'guerreiro.png', tipo: 'guerreiro' },
+  // Adicione mais cartas conforme necessário
 ];
 
 const styles = StyleSheet.create({

@@ -3,25 +3,21 @@ import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import Card from '../Card';
 
-// type CardType = {
-//   id: string;
-//   // add other card properties as needed
-// };
-
 type PlayerType = {
   hp: number;
   mana: number;
   hand: CardType[];
   field: CardType[];
-  // add other player properties as needed
+  
 };
 export type CardType = {
   id: number;
   nome: string;
+  tipo: 'guerreiro' | 'mago' | 'arqueiro';
   ataque: number;
-  mana: number;
   defesa: number;
-  tipo: string;
+  mana: number;
+  imagem: string;
 };
 
 type PlayerProps = {
