@@ -1,6 +1,6 @@
 // components/Card.jsx
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Image, Text, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 
 // Define o tipo para as propriedades de um card

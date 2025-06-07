@@ -34,7 +34,6 @@ export default function GameBoard() {
     hasAttacked: false,
   });
 
-  
   const [player2, setPlayer2] = useState<PlayerState>({
     hp: STARTING_HP,
     mana: STARTING_MANA,
@@ -81,7 +80,9 @@ export default function GameBoard() {
 
   function drawCard() {
     const deck = turn === 1 ? player1Deck : player2Deck;
-    const drawnCard = deck.find((c) => !currentPlayer.hand.includes(c) && !currentPlayer.field.includes(c));
+    const drawnCard = deck.find(
+      (c) => !currentPlayer.hand.includes(c) && !currentPlayer.field.includes(c)
+    );
     if (drawnCard) {
       setCurrentPlayer({
         ...currentPlayer,
@@ -108,7 +109,7 @@ export default function GameBoard() {
     mana: player1.mana,
     skill: 'Arcane Explosion',
     canUseSkill: player1.mana >= 3,
-    useSkill: useHeroPower,
+    useSkill: turn === 1 ? useHeroPower : () => {},
   };
 
   const hero2: HeroType = {
@@ -118,7 +119,7 @@ export default function GameBoard() {
     mana: player2.mana,
     skill: 'Shadow Strike',
     canUseSkill: player2.mana >= 3,
-    useSkill: useHeroPower,
+    useSkill: turn === 2 ? useHeroPower : () => {},
   };
 
   return (
@@ -127,101 +128,95 @@ export default function GameBoard() {
         <Text style={styles.title}>Jogador {player1.hp <= 0 ? '2' : '1'} vence!</Text>
       ) : (
         <View style={styles.gameBoard}>
-          {/* Player 2 Area */}
+          {/* Jogador 2 */}
           <View style={styles.playerArea}>
             <Hero {...hero2} />
             <View style={styles.buttonRow}>
-
-               <HeroPower
-                  mana={player1.mana}
-                  skill={hero1.skill}
-                  canUseSkill={hero1.canUseSkill}
-                  useSkill={hero1.useSkill}/>
-                  
+              <HeroPower {...hero2} />
               <DrawCardButton onDraw={drawCard} />
               <EndTurnButton onEndTurn={endTurn} />
             </View>
+
             <ScrollView horizontal style={styles.handRow}>
               {player2.hand.map((card) => (
-
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 2 || player2.mana < card.mana}
                   onPress={() => playCard(card)}
-                  style={[styles.cardHand, { opacity: turn !== 2 || player2.mana < card.mana ? 0.5 : 1 }]}>
-
+                  style={[
+                    styles.cardHand,
+                    { opacity: turn !== 2 || player2.mana < card.mana ? 0.5 : 1 },
+                  ]}>
                   <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
                 </TouchableOpacity>
               ))}
             </ScrollView>
+
             <View style={styles.fieldRow}>
               {player2.field.map((card) => (
-
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 2 || player2.hasAttacked}
                   onPress={() => attack(card)}
                   style={[styles.cardField, { opacity: turn !== 2 || player2.hasAttacked ? 0.5 : 1 }]}>
-
-                  <Text style={styles.cardTitle}>{card.name}</Text>
-                  <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
+                  <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
+                  <Text>{card.name}</Text>
+                  <Text>ATQ: {card.attack}</Text>
+                  <Text>DEF: {card.defense}</Text>
                 </TouchableOpacity>
               ))}
             </View>
           </View>
 
-          {/* Center Panel */}
+          {/* Painel Central */}
           <View style={styles.centerPanel}>
             <Text style={styles.centerText}>VS</Text>
-            <Text style={styles.title}> Player {turn}</Text>
-            <Text style={styles.section}>Life Points</Text>
-            <Text>P1: {player1.hp} HP</Text>
-            <Text>P2: {player2.hp} HP</Text>
+            <Text style={styles.title}>Turno do Jogador {turn}</Text>
+            <Text style={styles.section}>HP</Text>
+            <Text>P1: {player1.hp}</Text>
+            <Text>P2: {player2.hp}</Text>
             <Text style={styles.section}>Log:</Text>
-            {log.slice(-3).map((entry, index) => (
-              <Text key={index}>- {entry}</Text>
+            {log.slice(-3).map((entry, i) => (
+              <Text key={i}>- {entry}</Text>
             ))}
           </View>
 
-          {/* Player 1 Area */}
+          {/* Jogador 1 */}
           <View style={styles.playerArea}>
             <Hero {...hero1} />
             <View style={styles.buttonRow}>
-              
-              <HeroPower
-                  mana={player1.mana}
-                  skill={hero1.skill}
-                  canUseSkill={hero1.canUseSkill}
-                  useSkill={hero1.useSkill}/>                         
-
+              <HeroPower {...hero1} />
               <DrawCardButton onDraw={drawCard} />
               <EndTurnButton onEndTurn={endTurn} />
             </View>
+
             <ScrollView horizontal style={styles.handRow}>
               {player1.hand.map((card) => (
-
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 1 || player1.mana < card.mana}
                   onPress={() => playCard(card)}
-                  style={[styles.cardHand, { opacity: turn !== 1 || player1.mana < card.mana ? 0.5 : 1 }]}>
+                  style={[
+                    styles.cardHand,
+                    { opacity: turn !== 1 || player1.mana < card.mana ? 0.5 : 1 },
+                  ]}>
                   <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
                 </TouchableOpacity>
-
               ))}
             </ScrollView>
+
             <View style={styles.fieldRow}>
               {player1.field.map((card) => (
-
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 1 || player1.hasAttacked}
                   onPress={() => attack(card)}
                   style={[styles.cardField, { opacity: turn !== 1 || player1.hasAttacked ? 0.5 : 1 }]}>
-                  <Text style={styles.cardTitle}>{card.name}</Text>
-                  <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
+                  <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
+                  <Text>{card.name}</Text>
+                  <Text>ATQ: {card.attack}</Text>
+                  <Text>DEF: {card.defense}</Text>
                 </TouchableOpacity>
-
               ))}
             </View>
           </View>
