@@ -15,6 +15,7 @@ export  const  styles =  StyleSheet.create({
   gameBoard: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'gray',
   },
   playerArea: {
     flex: 1,
@@ -23,6 +24,8 @@ export  const  styles =  StyleSheet.create({
   handRow: {
     minHeight: CARD_HEIGHT + 10,
     marginVertical: 2,
+    backgroundColor: 'gray',
+    maxHeight: 90,
   },
   cardHand: {
     backgroundColor: '#fff',  

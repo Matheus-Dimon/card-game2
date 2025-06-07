@@ -1,5 +1,6 @@
 import type { CardType } from '@/components/Card';
 import { player1Deck, player2Deck } from '@/components/Decks';
+import HeroPower from '@/components/HeroPower';
 import React, { useState } from 'react';
 import { Button, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import Hero, { HeroType } from '../components/Hero';
@@ -33,6 +34,7 @@ export default function GameBoard() {
     hasAttacked: false,
   });
 
+  
   const [player2, setPlayer2] = useState<PlayerState>({
     hp: STARTING_HP,
     mana: STARTING_MANA,
@@ -129,27 +131,38 @@ export default function GameBoard() {
           <View style={styles.playerArea}>
             <Hero {...hero2} />
             <View style={styles.buttonRow}>
+
+               <HeroPower
+                  mana={player1.mana}
+                  skill={hero1.skill}
+                  canUseSkill={hero1.canUseSkill}
+                  useSkill={hero1.useSkill}/>
+                  
               <DrawCardButton onDraw={drawCard} />
               <EndTurnButton onEndTurn={endTurn} />
             </View>
             <ScrollView horizontal style={styles.handRow}>
               {player2.hand.map((card) => (
+
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 2 || player2.mana < card.mana}
                   onPress={() => playCard(card)}
                   style={[styles.cardHand, { opacity: turn !== 2 || player2.mana < card.mana ? 0.5 : 1 }]}>
+
                   <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
                 </TouchableOpacity>
               ))}
             </ScrollView>
             <View style={styles.fieldRow}>
               {player2.field.map((card) => (
+
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 2 || player2.hasAttacked}
                   onPress={() => attack(card)}
                   style={[styles.cardField, { opacity: turn !== 2 || player2.hasAttacked ? 0.5 : 1 }]}>
+
                   <Text style={styles.cardTitle}>{card.name}</Text>
                   <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
                 </TouchableOpacity>
@@ -174,11 +187,19 @@ export default function GameBoard() {
           <View style={styles.playerArea}>
             <Hero {...hero1} />
             <View style={styles.buttonRow}>
+              
+              <HeroPower
+                  mana={player1.mana}
+                  skill={hero1.skill}
+                  canUseSkill={hero1.canUseSkill}
+                  useSkill={hero1.useSkill}/>                         
+
               <DrawCardButton onDraw={drawCard} />
               <EndTurnButton onEndTurn={endTurn} />
             </View>
             <ScrollView horizontal style={styles.handRow}>
               {player1.hand.map((card) => (
+
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 1 || player1.mana < card.mana}
@@ -186,10 +207,12 @@ export default function GameBoard() {
                   style={[styles.cardHand, { opacity: turn !== 1 || player1.mana < card.mana ? 0.5 : 1 }]}>
                   <Image source={card.image} style={styles.cardImage} resizeMode="cover" />
                 </TouchableOpacity>
+
               ))}
             </ScrollView>
             <View style={styles.fieldRow}>
               {player1.field.map((card) => (
+
                 <TouchableOpacity
                   key={card.id}
                   disabled={turn !== 1 || player1.hasAttacked}
@@ -198,6 +221,7 @@ export default function GameBoard() {
                   <Text style={styles.cardTitle}>{card.name}</Text>
                   <Text style={styles.cardStats}>ATQ: {card.attack}</Text>
                 </TouchableOpacity>
+
               ))}
             </View>
           </View>
