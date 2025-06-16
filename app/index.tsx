@@ -5,7 +5,7 @@ import { ImageBackground, StyleSheet, View } from "react-native"
 
 export default function Index() {
     function handleNext() {
-        router.navigate("/gameboard")
+        router.navigate("/select")
     }
 
     return (
