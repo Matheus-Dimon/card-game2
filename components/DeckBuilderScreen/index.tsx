@@ -1,5 +1,3 @@
-import { CardType } from '@/components/Card';
-import AllCards from '@/components/DataCards'; // ajuste o caminho se necessário
 import React, { useState } from 'react';
 import {
     Alert,
@@ -7,9 +5,12 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
-    View
+    View,
 } from 'react-native';
-import { styles } from './styles'; // estilos visuais para cartas
+
+import { CardType } from '@/components/Card';
+import ExtendedCards from '@/components/DataCards'; // seu array com 20 cartas repetidas
+import { styles } from './styles';
 
 interface Props {
   onSave: (deck: CardType[]) => void;
@@ -21,6 +22,7 @@ export default function DeckBuilderScreen({ onSave }: Props) {
   const toggleCard = (card: CardType) => {
     const alreadySelected = selectedDeck.some(c => c.id === card.id);
     if (alreadySelected) {
+      // Remove a carta se já estiver selecionada
       setSelectedDeck(prev => prev.filter(c => c.id !== card.id));
     } else {
       if (selectedDeck.length >= 20) {
@@ -43,9 +45,9 @@ export default function DeckBuilderScreen({ onSave }: Props) {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Selecione suas Cartas (20)</Text>
 
-      {/* Cartas disponíveis */}
+      {/* Lista de cartas para selecionar */}
       <View style={styles.cardList}>
-        {AllCards.map((card) => {
+        {ExtendedCards.map(card => {
           const selected = selectedDeck.some(c => c.id === card.id);
           return (
             <TouchableOpacity
@@ -58,22 +60,25 @@ export default function DeckBuilderScreen({ onSave }: Props) {
               <Text style={styles.cardStats}>
                 ⚔ {card.attack} | 🛡 {card.defense} | 🔮 {card.mana}
               </Text>
+              {card.ability && (
+                <Text style={styles.cardAbility}>{card.ability.description}</Text>
+              )}
             </TouchableOpacity>
           );
         })}
       </View>
 
-      {/* Lista de selecionadas */}
+      {/* Cartas selecionadas */}
       <View style={styles.deckContainer}>
         <Text style={styles.deckTitle}>Cartas Selecionadas: {selectedDeck.length}/20</Text>
-        {selectedDeck.map((card, index) => (
+        {selectedDeck.map(card => (
           <View key={card.id} style={styles.deckCardRow}>
             <Text style={styles.deckCardText}>{card.name}</Text>
           </View>
         ))}
       </View>
 
-      {/* Botão de salvar */}
+      {/* Botão para salvar */}
       <TouchableOpacity style={styles.saveButton} onPress={saveDeck}>
         <Text style={styles.saveButtonText}>Salvar Deck</Text>
       </TouchableOpacity>

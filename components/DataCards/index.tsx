@@ -1,27 +1,62 @@
 import { CardType } from "@/components/Card";
 
-const AllCards: CardType[] = [
-  { id: 1, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
-  { id: 2, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
-  { id: 3, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
-  { id: 4, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
-  { id: 5, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
-  { id: 6, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
-  { id: 7, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
-  { id: 8, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
-  { id: 9, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
-  { id: 10, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
-  { id: 11, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
-  { id: 12, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
-  { id: 13, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
-  { id: 14, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
-  { id: 15, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
-  { id: 16, name: 'Archer', attack: 3, defense: 2, mana: 2, image: require('../../assets/images/archer.png'), type: 'archer' },
-  { id: 17, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
-  { id: 18, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
-  { id: 19, name: 'Warrior', attack: 4, defense: 3, mana: 3, image: require('../../assets/images/warrior.png'), type: 'warrior' },
-  { id: 20, name: 'Mage', attack: 2, defense: 4, mana: 2, image: require('../../assets/images/mage.png'), type: 'mage' },
-  // ... mais cartas
+export const AllCards: CardType[] = [
+  {
+    id: 1,
+    name: 'Archer',
+    type: 'archer',
+    attack: 3,
+    defense: 2,
+    mana: 2,
+    image: require('../../assets/images/archer.png'),
+    ability: {
+      name: 'Flecha Precisa',
+      description: 'Causa 1 de dano extra',
+      effect: 'extraDamage',
+      value: 1,
+    },
+  },
+  {
+    id: 2,
+    name: 'Warrior',
+    type: 'warrior',
+    attack: 4,
+    defense: 3,
+    mana: 3,
+    image: require('../../assets/images/warrior.png'),
+    ability: {
+      name: 'Resistência',
+      description: 'Nega 1 de dano na próxima rodada',
+      effect: 'damageNegation',
+      value: 1,
+      duration: 1,
+    },
+  },
+  {
+    id: 3,
+    name: 'Mage',
+    type: 'mage',
+    attack: 2,
+    defense: 4,
+    mana: 2,
+    image: require('../../assets/images/mage.png'),
+    ability: {
+      name: 'Cura Mística',
+      description: 'Cura 1 de vida',
+      effect: 'heal',
+      value: 1,
+    },
+  },
 ];
 
-export default AllCards;
+// Agora, fora do array AllCards, crie o array estendido:
+
+const ExtendedCards: CardType[] = Array.from({ length: 20 }, (_, i) => {
+  const original = AllCards[i % AllCards.length]; // repete as cartas do AllCards
+  return {
+    ...original,
+    id: i + 1, // garante id único para cada carta no ExtendedCards
+  };
+});
+
+export default ExtendedCards;

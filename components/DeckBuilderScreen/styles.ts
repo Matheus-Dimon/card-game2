@@ -84,4 +84,10 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  cardAbility: {
+    fontSize: 10,
+    color: '#ffcc00',
+    marginTop: 4,
+    textAlign: 'center',
+  },
 });

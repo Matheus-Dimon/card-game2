@@ -11,7 +11,14 @@ export type CardType = {
   attack: number;
   defense: number;
   mana: number;
-  image: any; // Pode ser um require('path/to/image') ou uma URI
+  image: any;
+  ability?: {
+    name: string;
+    description: string;
+    effect: 'heal' | 'extraDamage' | 'damageNegation'; // pode expandir
+    value: number; // quanto cura ou quanto causa
+    duration?: number; // turnos (ex: 1 rodada de proteção)
+  };
 };
 
 // Define o tipo para as propriedades do componente Card
