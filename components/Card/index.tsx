@@ -1,6 +1,10 @@
 // components/Card.jsx
 import React from 'react';
+<<<<<<< HEAD
 import { Image, Text, TouchableOpacity } from 'react-native';
+=======
+import { Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+>>>>>>> 46181a126a910a7dcc38002793928aee2f14d162
 import { styles } from './styles';
 
 // Define o tipo para as propriedades de um card
@@ -11,6 +15,7 @@ export type CardType = {
   attack: number;
   defense: number;
   mana: number;
+<<<<<<< HEAD
   image: any;
   ability?: {
     name: string;
@@ -19,6 +24,9 @@ export type CardType = {
     value: number; // quanto cura ou quanto causa
     duration?: number; // turnos (ex: 1 rodada de proteção)
   };
+=======
+  image: any; // Pode ser um require('path/to/image') ou uma URI
+>>>>>>> 46181a126a910a7dcc38002793928aee2f14d162
 };
 
 // Define o tipo para as propriedades do componente Card
