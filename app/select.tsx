@@ -1,10 +1,10 @@
-import { Card, CardType } from '@/components/Card';
-import { AllCards } from '@/components/DataCards';
+import { CardType } from '@/components/Card';
 import DeckBuilderScreen from '@/components/DeckBuilderScreen';
 import Startbutton from '@/components/Startbutton';
 import { useRouter } from 'expo-router';
 import { ImageBackground, View } from 'react-native';
 import { styleselect } from './styleselect';
+
 export default function Index() {
   const router = useRouter();
 
@@ -17,15 +17,12 @@ export default function Index() {
     handleNext();
   }
 
-  // ✅ Este return deve estar DENTRO da função Index
   return (
     <View style={styleselect.container}>
-      <AllCards>
-        {AllCards.map(card => (
-          <Card key={card.id} card={card} onPress={() => toggleCard(card)} />
-        ))}
-      </AllCards>
+      {/* Renderiza o construtor de deck com as cartas */}
       <DeckBuilderScreen onSave={handleSave} />
+
+      {/* Imagem de fundo e botão de início */}
       <ImageBackground
         source={require("../assets/images/masmorra.png")}
         style={styleselect.background}

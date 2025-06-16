@@ -1,5 +1,5 @@
 import { CardType } from '@/components/Card';
-import { AllCards } from '@/components/DataCards'; // ajuste o caminho se necessário
+import AllCards from '@/components/DataCards'; // ajuste o caminho se necessário
 import React, { useState } from 'react';
 import {
     Alert,
