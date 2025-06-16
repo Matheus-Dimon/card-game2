@@ -55,7 +55,13 @@ export default function DeckBuilderScreen({ onSave }: Props) {
               style={[styles.card, selected && styles.cardSelected]}
               onPress={() => toggleCard(card)}
             >
-              <Image source={card.image} style={styles.cardImage} />
+              <Image
+                 source={card.image}
+                 style={[
+                 styles.cardImage,           // estilo base
+                selected && { opacity: 0.4 } // estilo condicional
+              ]}
+            />
               <Text style={styles.cardText}>{card.name}</Text>
               <Text style={styles.cardStats}>
                 ⚔ {card.attack} | 🛡 {card.defense} | 🔮 {card.mana}
